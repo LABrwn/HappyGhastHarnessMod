@@ -13,13 +13,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Macht Soul Speed fuer Happy-Ghast-Harnesses "unterstuetzt".
  *
- * Der Amboss prueft {@code isSupportedItem}. Der Verzauberungstisch nutzt die Primary-Items und die
+ * Der Amboss ruft {@code canEnchant} auf (und {@code isSupportedItem} ist die verwandte Pruefung). Der Verzauberungstisch nutzt die Primary-Items und die
  * Tag {@code in_enchanting_table}; Soul Speed ist dort nicht enthalten. Dadurch geht es nur per Amboss.
  */
 @Mixin(Enchantment.class)
 public abstract class EnchantmentMixin {
 
-	@Inject(method = "isSupportedItem", at = @At("HEAD"), cancellable = true)
+	@Inject(method = {"isSupportedItem", "canEnchant"}, at = @At("HEAD"), cancellable = true)
 	private void happyghastharness$allowSoulSpeedOnHarness(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
 		if (!stack.is(ItemTags.HARNESSES)) {
 			return;
