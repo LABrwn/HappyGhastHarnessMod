@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "happyghastharness",
+  "version": "${version}",
+  "name": "Happy Ghast Harness - Soul Speed",
+  "description": "Soul Speed kann per Amboss auf Happy-Ghast-Harnesses gelegt werden und macht den Ghast schneller (Stufe 1 = 1,5x, Stufe 2 = 2x, Stufe 3 = 2,5x).",
+  "authors": ["LABrwn"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.happyghastharness.HappyGhastHarnessMod"]
+  },
+  "mixins": ["happyghastharness.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

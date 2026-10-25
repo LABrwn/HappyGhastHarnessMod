@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.happyghastharness.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EnchantmentMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
