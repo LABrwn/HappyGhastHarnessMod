@@ -41,13 +41,11 @@ jobs:
       - name: Diagnose (nur bei Fehler)
         if: failure()
         run: |
-          JAR=$(find ~/.gradle -name 'minecraft*.jar' -size +10M 2>/dev/null | head -1)
-          echo "jar=$JAR"
-          mkdir -p /tmp/mc && cd /tmp/mc && unzip -q -o "$JAR" 'net/minecraft/world/entity/EntityType.class' 'net/minecraft/tags/ItemTags.class' 'net/minecraft/world/entity/ai/attributes/Attributes.class' 2>/dev/null
-          javap -cp /tmp/mc net.minecraft.world.entity.EntityType | grep -i ghast | while read -r l; do echo "::error::EntityType: $l"; done
-          javap -cp /tmp/mc net.minecraft.tags.ItemTags | grep -i harness | while read -r l; do echo "::error::ItemTags: $l"; done
-          javap -cp /tmp/mc net.minecraft.world.entity.ai.attributes.Attributes | grep -i flying | while read -r l; do echo "::error::Attributes: $l"; done
-          find /home/runner/work -name '*.jar' -path '*minecraft*' | head -3 | while read -r l; do echo "::error::found $l"; done
+          JAR=$(find .gradle/loom-cache -name 'minecraft-merged*.jar' | head -1)
+          mkdir -p /tmp/mc && cd /tmp/mc && unzip -q -o "$JAR" 'net/*'
+          grep -rl "HAPPY_GHAST" net | head -5 | while read -r l; do echo "::error::HG-class $l"; done
+          grep -rl "happy_ghast" net | head -8 | while read -r l; do echo "::error::hg-lower $l"; done
+          javap -cp /tmp/mc net.minecraft.world.entity.EntityType | head -12 | while read -r l; do echo "::error::ET $l"; done
 
       - uses: actions/upload-artifact@v4
         with:
