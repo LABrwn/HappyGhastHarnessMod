@@ -41,7 +41,7 @@ jobs:
       - name: Diagnose (nur bei Fehler)
         if: failure()
         run: |
-          JAR=$(find .gradle/loom-cache -name 'minecraft-merged*.jar' | head -1)
+          JAR=$(find "$PWD/.gradle/loom-cache" -name 'minecraft-merged*.jar' | head -1)
           mkdir -p /tmp/mc && cd /tmp/mc && unzip -q -o "$JAR" 'net/*'
           grep -rl "HAPPY_GHAST" net | head -5 | while read -r l; do echo "::error::HG-class $l"; done
           grep -rl "happy_ghast" net | head -8 | while read -r l; do echo "::error::hg-lower $l"; done
