@@ -42,6 +42,7 @@ jobs:
         if: failure()
         run: |
           JAR=$(find "$PWD/.gradle/loom-cache" -name 'minecraft-merged*.jar' | head -1)
+          set +e
           mkdir -p /tmp/mc && cd /tmp/mc && unzip -q -o "$JAR" 'net/*'
           {
             echo "== Klassen *HappyGhast*"; find net -name '*HappyGhast*'
