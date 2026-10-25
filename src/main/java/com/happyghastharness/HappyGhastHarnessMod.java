@@ -15,12 +15,12 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.happyghast.HappyGhast;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -58,7 +58,7 @@ public class HappyGhastHarnessMod implements ModInitializer {
 		Set<LivingEntity> activeNow = new HashSet<>();
 		for (ServerPlayer player : server.getPlayerList().getPlayers()) {
 			Entity vehicle = player.getVehicle();
-			if (vehicle instanceof LivingEntity ghast && vehicle.getType() == EntityType.HAPPY_GHAST) {
+			if (vehicle instanceof HappyGhast ghast) {
 				int level = getSoulSpeedLevel(ghast);
 				if (level > 0) {
 					applyBoost(ghast, SPEED_BONUS_PER_LEVEL[Math.min(level, 3)]);
