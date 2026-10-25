@@ -38,20 +38,18 @@ jobs:
           fi
           exit $RC
 
-      - name: Diagnose (nur bei Fehler)
-        if: failure()
+      - name: Pruefen (Mixin-Ziel, Reittempo)
         run: |
-          JAR=$(find "$PWD/.gradle/loom-cache" -name 'minecraft-merged*.jar' | head -1)
           set +e
+          JAR=$(find "$PWD/.gradle/loom-cache" -name 'minecraft-merged*.jar' | head -1)
           mkdir -p /tmp/mc && cd /tmp/mc && unzip -q -o "$JAR" 'net/*'
           {
-            echo "== Klassen *HappyGhast*"; find net -name '*HappyGhast*'
-            echo "== ServerPlayer refs"; javap -v -p -cp /tmp/mc net.minecraft.server.level.ServerPlayer | grep -i "HAPPY_GHAST" | sort -u | head -5
-            echo "== EntityTypeTagsProvider refs"; javap -v -p -cp /tmp/mc net.minecraft.data.tags.EntityTypeTagsProvider | grep -i "HAPPY_GHAST" | sort -u | head -5
-            echo "== EntityType ghast-Felder"; javap -p -cp /tmp/mc net.minecraft.world.entity.EntityType | grep -i ghast
+            echo "== Enchantment Methoden"; javap -p -cp /tmp/mc net.minecraft.world.item.enchantment.Enchantment | grep -iE "supported|canEnchant|description"
+            echo "== AnvilMenu Enchantment-Aufrufe"; javap -c -p -cp /tmp/mc net.minecraft.world.inventory.AnvilMenu | grep -E "Enchantment\.(isSupportedItem|canEnchant)|isSupportedItem" | sort -u
+            echo "== HappyGhast Speed"; javap -c -p -cp /tmp/mc net.minecraft.world.entity.animal.happyghast.HappyGhast | grep -iE "FLYING_SPEED|MOVEMENT_SPEED|getRiddenSpeed|getFlyingSpeed" | sort -u | head -12
           } > /tmp/diag.txt 2>&1
           MSG=$(cat /tmp/diag.txt | sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g')
-          echo "::error title=DIAG::$MSG"
+          echo "::notice title=DIAG::$MSG"
 
       - uses: actions/upload-artifact@v4
         with:
