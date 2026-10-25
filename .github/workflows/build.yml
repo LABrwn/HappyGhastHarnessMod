@@ -45,7 +45,9 @@ jobs:
           mkdir -p /tmp/mc && cd /tmp/mc && unzip -q -o "$JAR" 'net/*'
           grep -rl "HAPPY_GHAST" net | head -5 | while read -r l; do echo "::error::HG-class $l"; done
           grep -rl "happy_ghast" net | head -8 | while read -r l; do echo "::error::hg-lower $l"; done
-          javap -c -p -cp /tmp/mc net.minecraft.server.level.ServerPlayer net.minecraft.data.tags.EntityTypeTagsProvider | grep -i "HAPPY_GHAST" | sort -u | head -5 | while read -r l; do echo "::error::REF $l"; done
+          find net -name '*HappyGhast*' | head -10 | while read -r l; do echo "::error::CLS $l"; done
+          javap -v -p -cp /tmp/mc net.minecraft.server.level.ServerPlayer | grep -i "HAPPY_GHAST" | sort -u | head -5 | while read -r l; do echo "::error::REF $l"; done
+          javap -v -p -cp /tmp/mc net.minecraft.stats.Stats | grep -i "HAPPY_GHAST" | sort -u | head -5 | while read -r l; do echo "::error::REF2 $l"; done
 
       - uses: actions/upload-artifact@v4
         with:
