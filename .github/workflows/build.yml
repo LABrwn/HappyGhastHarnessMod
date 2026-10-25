@@ -34,7 +34,7 @@ jobs:
           gradle build --no-daemon --stacktrace ${{ steps.v.outputs.args }} 2>&1 | tee build.log
           RC=${PIPESTATUS[0]}
           if [ $RC -ne 0 ]; then
-            grep -E "error:|\*\* What went wrong|Could not|FAILED|> " build.log | head -15 | while read -r l; do echo "::error::${l//%/%25}"; done
+            grep -E -A3 "error:|What went wrong" build.log | grep -v "^--" | head -30 | while read -r l; do echo "::error::${l//%/%25}"; done
           fi
           exit $RC
 
