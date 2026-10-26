@@ -3,7 +3,7 @@
   "id": "happyghastharness",
   "version": "${version}",
   "name": "Happy Ghast Harness - Soul Speed",
-  "description": "Soul Speed kann per Amboss auf Happy-Ghast-Harnesses gelegt werden und macht den Ghast schneller (Stufe 1 = 1,5x, Stufe 2 = 2x, Stufe 3 = 2,5x).",
+  "description": "Soul Speed kann per Amboss auf Happy-Ghast-Harnesses gelegt werden und macht den Ghast schneller (Stufe 1 = 1,3x, Stufe 2 = 1,6x, Stufe 3 = 2x).",
   "authors": ["LABrwn"],
   "license": "MIT",
   "environment": "*",

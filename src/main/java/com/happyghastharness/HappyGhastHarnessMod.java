@@ -30,8 +30,8 @@ public class HappyGhastHarnessMod implements ModInitializer {
 	public static final String MOD_ID = "happyghastharness";
 	public static final String SOUL_SPEED_TRANSLATION_KEY = "enchantment.minecraft.soul_speed";
 
-	/** Soul Speed Stufe 1 / 2 / 3 -> 1,5x / 2x / 2,5x Fluggeschwindigkeit. */
-	private static final double[] SPEED_BONUS_PER_LEVEL = {0.0, 0.5, 1.0, 1.5};
+	/** Soul Speed Stufe 1 / 2 / 3 -> 1,3x / 1,6x / 2x Fluggeschwindigkeit. */
+	private static final double[] SPEED_BONUS_PER_LEVEL = {0.0, 0.3, 0.6, 1.0};
 	private static final int UPDATE_INTERVAL_TICKS = 5;
 
 	private static final Identifier MODIFIER_ID = Identifier.fromNamespaceAndPath(MOD_ID, "soul_speed_harness");
